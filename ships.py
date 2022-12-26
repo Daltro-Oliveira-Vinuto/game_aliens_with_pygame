@@ -2,9 +2,10 @@ from __future__ import annotations
 from typing import Any
 
 class Projectile:
-    def __init__(self, x: float, y:float, pygame: Any, surface: Any, image_path: str, speed: float=10.0) -> None:
+    def __init__(self, x: float, y:float, pygame: Any, \
+        surface: Any, image_path: str, speed: float=10.0) -> None:
         self.x: float = x
-        self.y: float = y 
+        self.y: float = y
         self.pygame: Any  = pygame
         self.surface: Any = surface
         self.image_path: str = image_path
@@ -21,7 +22,7 @@ class Projectile:
     def draw(self) -> None:
         self.surface.blit(\
             self._image,\
-            (self.x-self.image_width, self.y-self.image_height))  
+            (self.x-self.image_width, self.y-self.image_height))
 
     def update_pos(self, position: tuple[float,float]) -> None:
         self.x = position[0]
@@ -32,7 +33,7 @@ class Projectile:
 
     def get_x(self) -> float:
         return self.x
-    
+
     def get_y(self) -> float:
         return self.y
 
@@ -40,13 +41,13 @@ class Projectile:
         self.y -= self.speed
     
     def move_down(self) -> None:
-        self.y += self.speed 
+        self.y += self.speed
 
     def move_left(self) -> None:
         self.x -= self.speed
 
     def move_right(self) -> None:
-        self.x += self.speed 
+        self.x += self.speed
 
 
 class Ship(Projectile):
