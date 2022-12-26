@@ -39,7 +39,7 @@ class Projectile:
 
     def move_up(self) -> None:
         self.y -= self.speed
-    
+
     def move_down(self) -> None:
         self.y += self.speed
 
@@ -53,12 +53,12 @@ class Projectile:
 class Ship(Projectile):
     def __init__(self,x: float, y:float , pygame: Any ,surface: Any ,\
         image_path: str, image_bullet_path: str) -> None:
-       Projectile.__init__(self, x,y,pygame, surface, image_path)
-       self.image_bullet_path: str = image_bullet_path
-       self.bullets_fired: list[Projectile] = []
+        Projectile.__init__(self, x,y,pygame, surface, image_path)
+        self.image_bullet_path: str = image_bullet_path
+        self.bullets_fired: list[Projectile] = []
 
     def __del__(self) -> None:
-        return None 
+        return None
 
     def fire(self) -> None:
         fire_position: tuple[float,float] = \
@@ -70,5 +70,4 @@ class Ship(Projectile):
             Projectile(x, y, self.pygame,self.surface, self.image_bullet_path,speed=10)
 
         self.bullets_fired.append(new_bullet_fired)
-
-
+        
