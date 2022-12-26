@@ -2,9 +2,7 @@ from __future__ import annotations
 from typing import Any
 
 class Projectile:
-    def __init__(self, x: float, y:float, pygame: Any, surface: Any,\
-        image_path: str, speed: float=10.0) -> None:
-
+    def __init__(self, x: float, y:float, pygame: Any, surface: Any, image_path: str, speed: float=10.0) -> None:
         self.x: float = x
         self.y: float = y 
         self.pygame: Any  = pygame

@@ -11,7 +11,7 @@ from ships import Ship
 class Directions:
     def __init__(self, left: bool=False, right:bool=False, \
         up:bool =False, down:bool =False) -> None:
-        self.left: bool = left 
+        self.left: bool = left
         self.right: bool  = right 
         self.up: bool= up 
         self.down: bool = down 
@@ -67,8 +67,7 @@ def start_game() -> tuple[Ship, list[Ship], Keyboard]:
     enemies: list[Ship] = []
     return player, enemies, keyboard
 
-def update_game(player: Ship, enemies: list[Ship], mouse_pos: tuple[int,int],\
-                mouse_pressed: tuple[bool,...], keyboard: Keyboard) -> None:
+def update_game(player: Ship, enemies: list[Ship], mouse_pos: tuple[int,int], mouse_pressed: tuple[bool,...], keyboard: Keyboard) -> None:
 
     if mouse_pressed[0]:
         # just for debugging
