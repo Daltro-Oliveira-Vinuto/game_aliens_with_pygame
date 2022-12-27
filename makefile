@@ -18,3 +18,6 @@ run:
 	python source/aliens.py
 
 
+debug:
+	python -m pdb source/aliens.py
+
