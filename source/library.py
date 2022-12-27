@@ -3,8 +3,8 @@
 class Position:
     "Class to handle de position in 2D of a particle"
     def __init__(self, pos_x: float, pos_y: float) -> None:
-        self._pos_x = pos_x
-        self._pos_y = pos_y
+        self._pos_x: float = pos_x
+        self._pos_y: float = pos_y
 
     @property
     def pos_x(self) -> float:

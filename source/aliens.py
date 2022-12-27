@@ -100,7 +100,7 @@ def quit_game() -> None:
     "free the resources of the game"
     sys.exit()
 
-def start_game() -> tuple[Ship, list[Ship], Keyboard]:
+def start_game() -> tuple[Ship, list[Ship], Keyboard, bool, bool]:
     "function called when the game start to initialize objects"
     start_keyboard: Keyboard = Keyboard(Directions())
     state_game_started = True

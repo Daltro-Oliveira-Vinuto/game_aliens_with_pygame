@@ -68,7 +68,7 @@ class Ship(Projectile):
     def __del__(self) -> None:
         return None
 
-    def start_bullets_fired(self):
+    def start_bullets_fired(self) -> None:
         "initialize bullets_fired list to empty"
         self.bullets_fired: list[Projectile] = []
 
