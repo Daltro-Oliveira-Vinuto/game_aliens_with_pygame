@@ -5,6 +5,7 @@ from typing import Any
 import sys
 import pygame
 import pygame.locals
+from library import Position
 from ships import Ship
 
 
@@ -14,9 +15,6 @@ surface: Any = pygame.display.set_mode((surface_width, surface_height))
 pygame.display.set_caption("aliens!")
 background_image: Any = pygame.image.load("./assets/background.png")
 start_image: Any = pygame.image.load("./assets/start_screen.png")
-
-game_started: bool = False
-game_ended: bool = False
 
 image_player_path: str = "./assets/you_ship.png"
 image_bullet_player_path: str = "./assets/you_pellet.png"
@@ -37,19 +35,37 @@ class Directions:
     def upp(self) -> bool:
         "encapusulate self._upp variable"
         return self._upp
+
+    @upp.setter
+    def upp(self, value:bool) -> None:
+        self._upp = value
+
     @property
     def down(self) -> bool:
         "encapusulate self._down variable"
         return self._down
+
+    @down.setter
+    def down(self,value: bool) -> None:
+        self._down = value
+
     @property
     def right(self) -> bool:
         "encapusulate self._right variable"
         return self._right
+
+    @right.setter
+    def right(self, value: bool) -> None:
+        self._right = value
+
     @property
     def left(self) -> bool:
         "encapusulate self._left variable"
         return self._left
 
+    @left.setter
+    def left(self, value: bool) -> None:
+        self._left = value
 
 class Keyboard:
     "This class allows a convenient access to Keyboard to other objects using Directions"
@@ -76,6 +92,10 @@ class Keyboard:
         "encapusulate self._state variable"
         return self._state
 
+    @state.setter
+    def state(self, value: bool) -> None:
+        self._state = value
+
 def quit_game() -> None:
     "free the resources of the game"
     sys.exit()
@@ -86,7 +106,7 @@ def start_game() -> tuple[Ship, list[Ship], Keyboard]:
     state_game_started = True
     state_game_ended = False
     start_player: Ship = \
-        Ship(surface_width/2.0, surface_height, pygame, surface, \
+        Ship(Position(surface_width/2.0, surface_height), [pygame, surface], \
         image_player_path, image_bullet_player_path)
 
     start_enemies: list[Ship] = []
@@ -111,19 +131,18 @@ def update_game(player: Ship, enemies: list[Ship], mouse_pos: tuple[int,int],\
         if keyboard_object.directions.down:
             player.move_down()
     else:
-        player.update_pos(mouse_pos)
+        player.update_pos(Position(mouse_pos[0], mouse_pos[1]))
 
     bullets_fired_to_remove: list[int] = []
     for index, bullet_fired in enumerate(player.bullets_fired):
         bullet_fired.move_up()
-        if bullet_fired.get_y() < 0.0:
+        if bullet_fired.get_pos_y() < 0.0:
             bullets_fired_to_remove.append(index)
 
     for index in bullets_fired_to_remove:
         player.bullets_fired.pop(index)
 
     print(enemies)
-
 
 def draw_game(player: Ship, enemies: list[Ship]) -> None:
     """Print player object and his bullets. Print enemies and the bullets
@@ -159,7 +178,6 @@ while True:
                 keyboard.directions.left= True
             if event.key == getattr(pygame.locals, "K_RIGHT"):
                 keyboard.directions.right = True
-
         elif event.type == getattr(pygame.locals, "KEYUP"):
             if event.key == getattr(pygame.locals, "K_LEFT"):
                 keyboard.directions.left = False
@@ -177,5 +195,5 @@ while True:
                      mouse_pressed_list, keyboard)
         draw_game(player_object, enemies_list)
 
-    pygame.time.Clock().tick(40)
+    pygame.time.Clock().tick(20)
     pygame.display.update()
