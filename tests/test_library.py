@@ -10,7 +10,7 @@ sys.path.append(parent_directory+"/source")
 
 from library import Position
 
-def test_position_class():
+def test_position_class_setters_and_getters():
 	p1 = Position(3,4)
 	assert p1.pos_x == 3
 	assert p1.pos_y == 4
