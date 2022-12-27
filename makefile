@@ -1,7 +1,7 @@
 
 all: test lint mypy
 
-lint: source/aliens.py source/ships.py
+lint:
 	pylint source/aliens.py
 	pylint source/ships.py
 	pylint source/library.py
@@ -9,7 +9,7 @@ lint: source/aliens.py source/ships.py
 test:
 	pytest -v 
 
-mypy: source/ships.py source/aliens.py
+mypy:
 	mypy source/ships.py
 	mypy source/aliens.py
 	mypy source/library.py
