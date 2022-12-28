@@ -12,6 +12,7 @@ class Projectile:
         self.surface: Any = stage[1]
         self.image_path: str = image_path
         self._image: Any = self.pygame.image.load(self.image_path)
+
     def __del__(self) -> None:
         return None
 
@@ -21,7 +22,6 @@ class Projectile:
             (self.position.pos_x-self._image.get_size()[0],
              self.position.pos_y-self._image.get_size()[1])
             )
-
 
     def update_pos(self, position: Position) -> None:
         "update position of the object"
