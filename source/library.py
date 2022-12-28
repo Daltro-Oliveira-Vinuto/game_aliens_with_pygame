@@ -30,7 +30,7 @@ class Position:
 class Directions:
     "This class allow simple access to directions to other objects"
     def __init__(self, left: bool=False, right:bool=False, \
-        upp:bool =False, down:bool =False) -> None:
+    upp:bool =False, down:bool =False) -> None:
         self._left: bool = left
         self._right: bool = right
         self._upp: bool = upp
