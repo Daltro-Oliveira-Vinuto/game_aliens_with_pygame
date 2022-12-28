@@ -1,4 +1,4 @@
-"Modules with the classes for Projectiles and Ships objects"
+"Module with the classes for Projectiles and Ships objects"
 from __future__ import annotations
 from typing import Any
 from library import Position

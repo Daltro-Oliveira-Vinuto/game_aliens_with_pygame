@@ -36,6 +36,9 @@ class Directions:
         self._upp: bool = upp
         self._down: bool = down
 
+    def __str__(self):
+        return f"(left={self.left}, right={self.right}, up={self.upp}, down={self.down})"
+
     @property
     def upp(self) -> bool:
         "encapusulate self._upp variable"
@@ -77,14 +80,14 @@ class Keyboard:
     def __init__(self, directions: Directions) -> None:
         self.directions = directions
         self._state: bool = False
-        self._state = self.get_state()
+        self._state = self.get_real_state()
 
-    def get_state(self) -> bool:
-        "Return the actual state of Directions using a boolean"
+    def get_real_state(self) -> bool:
+        "Return True if the self_state is True or any of the directions are True"
         if self.directions.upp or\
         self.directions.down or\
         self.directions.left or\
-        self.directions.down or \
+        self.directions.right or \
         self._state:
             self._state = True
         else:
@@ -100,3 +103,6 @@ class Keyboard:
     @state.setter
     def state(self, value: bool) -> None:
         self._state = value
+
+    def __str__(self):
+        return self.directions.__str__()+f", state={self.state}"

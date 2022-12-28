@@ -47,7 +47,7 @@ def update_game(player: Ship, enemies: list[Ship], mouse_pos: tuple[int,int],\
         player.fire()
         keyboard_object.state = False
 
-    if  keyboard.get_state():
+    if  keyboard.get_real_state():
         if keyboard_object.directions.left:
             player.move_left()
         if keyboard_object.directions.right:
