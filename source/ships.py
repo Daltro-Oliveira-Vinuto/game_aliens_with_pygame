@@ -3,24 +3,29 @@ from __future__ import annotations
 from typing import Any
 from library import Position
 
+#pylint: disable=too-many-arguments
+
 class Projectile:
     "Class with the attributes and behaviors of the Projectile objects"
-    speed = 10
-    def __init__(self, position: Position, stage: list[Any], image_path: str) -> None:
+    def __init__(self, position: Position, stage: Any = None,\
+     image_path: str = "", speed: float = 10) -> None:
         self.position: Position = position
-        self.pygame: Any  = stage[0]
-        self.surface: Any = stage[1]
         self.image_path: str = image_path
-        self._image: Any = self.pygame.image.load(self.image_path)
+        self.speed = speed
+        if stage is not None and len(stage) >= 2:
+            self.pygame: Any  = stage[0]
+            self.surface: Any = stage[1]
+            if self.pygame is not None:
+                self.image: Any = self.pygame.image.load(self.image_path)
 
     def __del__(self) -> None:
         return None
 
     def draw(self) -> None:
         "Draw projectile object"
-        self.surface.blit(self._image,\
-            (self.position.pos_x-self._image.get_size()[0],
-             self.position.pos_y-self._image.get_size()[1])
+        self.surface.blit(self.image,\
+            (self.position.pos_x-self.image.get_size()[0],
+             self.position.pos_y-self.image.get_size()[1])
             )
 
     def update_pos(self, position: Position) -> None:
@@ -42,28 +47,29 @@ class Projectile:
 
     def move_up(self) -> None:
         "move the object up"
-        self.position.pos_y -= Projectile.speed
+        self.position.pos_y -= self.speed
 
     def move_down(self) -> None:
         "move the object down"
-        self.position.pos_y += Projectile.speed
+        self.position.pos_y += self.speed
 
     def move_left(self) -> None:
         "move the object left"
-        self.position.pos_x -= Projectile.speed
+        self.position.pos_x -= self.speed
 
     def move_right(self) -> None:
         "move the object right"
-        self.position.pos_x += Projectile.speed
+        self.position.pos_x += self.speed
 
 
 class Ship(Projectile):
     "Class with the attributes and behaviors of the Ships objects"
-    def __init__(self, position: Position , stage: list[Any],\
-        image_path: str, image_bullet_path: str) -> None:
-        Projectile.__init__(self, position, stage, image_path)
+    def __init__(self, position: Position , stage: Any,\
+        image_path: str, image_bullet_path: str, speed: float=10) -> None:
+        Projectile.__init__(self, position, stage, image_path, speed)
         self.image_bullet_path: str = image_bullet_path
         self.start_bullets_fired()
+        self.speed = speed
 
     def __del__(self) -> None:
         return None
@@ -75,14 +81,14 @@ class Ship(Projectile):
     def fire(self) -> None:
         "create the object projectile after each fire and append him to bullets_fired list"
         fire_position: tuple[float,float] = \
-            (self.position.pos_x - self._image.get_size()[0]/(2.0),\
-             self.position.pos_y-self._image.get_size()[1])
+            (self.position.pos_x - self.image.get_size()[0]/(2.0),\
+             self.position.pos_y-self.image.get_size()[1])
         fire_pos_x: float = fire_position[0]
         fire_pos_y: float = fire_position[1]
 
         new_bullet_fired: Projectile = \
             Projectile(Position(fire_pos_x, fire_pos_y), \
-                [self.pygame,self.surface],self.image_bullet_path)
+                [self.pygame,self.surface],self.image_bullet_path, self.speed)
 
         self.bullets_fired.append(new_bullet_fired)
         
