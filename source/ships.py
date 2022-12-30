@@ -78,8 +78,11 @@ class Ship(Projectile):
         "initialize bullets_fired list to empty"
         self.bullets_fired: list[Projectile] = []
 
-    def fire(self) -> None:
+    def shoot(self, music_path: str) -> None:
         "create the object projectile after each fire and append him to bullets_fired list"
+        fire_music = self.pygame.mixer.Sound(music_path)
+        fire_music.set_volume(0.5)
+        fire_music.play()
         fire_position: tuple[float,float] = \
             (self.position.pos_x - self.image.get_size()[0]/(2.0),\
              self.position.pos_y-self.image.get_size()[1])
@@ -91,4 +94,28 @@ class Ship(Projectile):
                 [self.pygame,self.surface],self.image_bullet_path, self.speed)
 
         self.bullets_fired.append(new_bullet_fired)
+
+    def fire(self):
+        self.shoot("none")
         
+
+class Player(Ship):
+    "This is a son of Ship class for the player objects"
+    def __init__(self, position: Position, stage: Any, \
+        image_path: str, image_bullet_path: str, speed: float = 10) -> None:
+        Ship.__init__(self, position, stage, image_path, \
+            image_bullet_path, speed)
+
+    def fire(self):
+        self.shoot("./sounds/player_laser.wav")
+
+
+class Enemy(Ship):
+    "This is a son of Ship class for the enemies objects"
+    def __init__(self, position: Position, stage: Any, \
+        image_path: str, image_bullet_path: str, speed: float = 10) -> None:
+        Ship.__init__(self, position, stage, image_path, \
+            image_bullet_path, speed)
+
+    def fire(self):
+        self.shoot("./sounds/enemy_laser.wav")

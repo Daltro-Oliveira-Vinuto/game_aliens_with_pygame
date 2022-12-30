@@ -6,7 +6,7 @@ import sys
 import pygame
 import pygame.locals
 from library import Position, Keyboard, Directions
-from ships import Ship
+from ships import Player, Enemy
 
 
 surface_width: int = 1024
@@ -15,6 +15,8 @@ surface: Any = pygame.display.set_mode((surface_width, surface_height))
 pygame.display.set_caption("aliens!")
 background_image: Any = pygame.image.load("./assets/background.png")
 start_image: Any = pygame.image.load("./assets/start_screen.png")
+
+pygame.mixer.init()
 
 image_player_path: str = "./assets/you_ship.png"
 image_bullet_player_path: str = "./assets/you_pellet.png"
@@ -26,19 +28,19 @@ def quit_game() -> None:
     "free the resources of the game"
     sys.exit()
 
-def start_game() -> tuple[Ship, list[Ship], Keyboard, bool, bool]:
+def start_game() -> tuple[Player, list[Enemy], Keyboard, bool, bool]:
     "function called when the game start to initialize objects"
     start_keyboard: Keyboard = Keyboard(Directions())
     state_game_started = True
     state_game_ended = False
-    start_player: Ship = \
-        Ship(Position(surface_width/2.0, surface_height), [pygame, surface], \
+    start_player: Player = \
+        Player(Position(surface_width/2.0, surface_height), [pygame, surface], \
         image_player_path, image_bullet_player_path)
 
-    start_enemies: list[Ship] = []
+    start_enemies: list[Enemy] = []
     return start_player, start_enemies, start_keyboard, state_game_started, state_game_ended
 
-def update_game(player: Ship, enemies: list[Ship], mouse_pos: tuple[int,int],\
+def update_game(player: Player, enemies: list[Enemy], mouse_pos: tuple[int,int],\
  mouse_pressed: tuple[bool,...], keyboard_object: Keyboard) -> None:
     "This function update the objects of the game"
     if mouse_pressed[0]:
@@ -70,7 +72,7 @@ def update_game(player: Ship, enemies: list[Ship], mouse_pos: tuple[int,int],\
 
     print(enemies)
 
-def draw_game(player: Ship, enemies: list[Ship]) -> None:
+def draw_game(player: Player, enemies: list[Enemy]) -> None:
     """Print player object and his bullets. Print enemies and the bullets
        of each enemy """
     surface.blit(background_image,(0,0))
