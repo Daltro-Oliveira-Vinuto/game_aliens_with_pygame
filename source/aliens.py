@@ -38,6 +38,10 @@ def start_game() -> tuple[Player, list[Enemy], Keyboard, bool, bool]:
         image_player_path, image_bullet_player_path)
 
     start_enemies: list[Enemy] = []
+
+    pygame.mixer.music.load("./sounds/metal_warriors.mp3")
+    pygame.mixer.music.set_volume(0.8)
+    pygame.mixer.music.play(-1)
     return start_player, start_enemies, start_keyboard, state_game_started, state_game_ended
 
 def update_game(player: Player, enemies: list[Enemy], mouse_pos: tuple[int,int],\

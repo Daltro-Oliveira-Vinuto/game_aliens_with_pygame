@@ -27,3 +27,8 @@ I'm using 'mypy' for check the type hinting in python.
 I'm using 'pytest' for make automated tests of the modules.
 
 I'm using 'pdb' module for interactive debugging.
+
+The music in sounds/metal_warriors.mp3 is from the game Metal Warriors developed
+by Lucasartas, published by Konami for the console Nintendo SNES and is used here
+only for pedagogical purposes. I choose this music for the background of the game
+because this game was one of my favourites games in my childhood.

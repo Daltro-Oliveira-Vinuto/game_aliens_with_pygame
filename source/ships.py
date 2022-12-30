@@ -96,8 +96,8 @@ class Ship(Projectile):
         self.bullets_fired.append(new_bullet_fired)
 
     def fire(self):
-        self.shoot("none")
-        
+        "this function should be overrided by his sons in the inherintance hierarchy"
+        self.shoot("/")
 
 class Player(Ship):
     "This is a son of Ship class for the player objects"
